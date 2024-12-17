@@ -1,101 +1,290 @@
-import Image from "next/image";
+// "use client"
+//
+//
+// import Image from "next/image";
+//
+// import { zodResolver } from "@hookform/resolvers/zod"
+// import { useForm } from "react-hook-form"
+// import { z } from "zod"
+// import { Button } from "@/components/ui/button"
+// import {
+//   Form,
+//   FormControl,
+//   FormDescription,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from "@/components/ui/form"
+// import { Input } from "@/components/ui/input"
+// import {useState} from "react";
+//
+// // const formSchema = z.object({
+// //   username: z.string().min(2, {
+// //     message: "Username must be at least 2 characters.",
+// //   }),
+// // })
+//
+// const formSchema = z.object({
+//   email: z.string().email(),
+//   // phoneNumber: z.string().max(12),
+//   // postal: z.string(),
+//   // city: z.string(),
+//   firstName: z.string(),
+//   lastName: z.string(),
+//   // address: z.string(),
+//   amount: z.string(),
+// });
+//
+// export default function Home(){
+//     const [splitPayment, setSplitPayment] = useState<number>(1);
+//
+// const form = useForm<z.infer<typeof formSchema>>({
+//   resolver: zodResolver(formSchema),
+//   // defaultValues: {
+//   //   username: "",
+//   // },
+// })
+//
+//
+//   const handlePayment = async () => {
+//     const apiUrl = "https://api.merchant.staging.ercaspay.com/api/v1";
+//     const accessToken = "ECRS-TEST-SKLJGmc0iMds9alInDZSyCLl2zg6eSeClss0dQgCAZ"; // Replace with actual token
+//     const redirectUrl = "https://omolabakeventures.com";
+//
+//     const requestBody = {
+//       amount: 100,
+//       paymentReference: "R5md7gd9b4s3h2j5d67g",
+//       paymentMethods: "card,bank-transfer,ussd,qrcode",
+//       customerName: "ShopCras",
+//       customerEmail: "shopcras@dev.com",
+//       customerPhoneNumber: "09061626364",
+//       redirectUrl,
+//       description: "The description for this payment goes here",
+//       currency: "NGN",
+//       feeBearer: "customer",
+//       metadata: {
+//         firstname: "Ola",
+//         lastname: "Benson",
+//         email: "iie@mail.com",
+//       },
+//     };
+//
+//     try {
+//       const response = await fetch(apiUrl + "/payment/initiate", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//         body: JSON.stringify(requestBody),
+//       });
+//
+//
+//
+//       const result = await response.json();
+//
+//       if (response.ok) {
+//         // Redirect to the success URL
+//         console.log(result);
+//         window.location.href = redirectUrl;
+//       } else {
+//         console.error("Payment failed:", result);
+//         console.log(`Payment failed: ${result.message || "Unknown error"}`);
+//       }
+//     } catch (error) {
+//       console.error("An error occurred:", error);
+//       console.log("An unexpected error occurred. Please try again.");
+//     }
+//   };
+//
+//
+// function onSubmit(values: z.infer<typeof formSchema>) {
+//   // Do something with the form values.
+//   // ✅ This will be type-safe and validated.
+//   console.log(values)
+// }
+//
+//   return (
+//     <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+//       <Form {...form}>
+//         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+//           <FormField
+//               control={form.control}
+//               name="email"
+//               render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>Email</FormLabel>
+//                     <FormControl>
+//                       <Input placeholder="Email" {...field} />
+//                     </FormControl>
+//
+//                     <FormMessage />
+//                   </FormItem>
+//               )}
+//           />
+//
+//           <FormField
+//               control={form.control}
+//               name="firstName"
+//               render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>First Name</FormLabel>
+//                     <FormControl>
+//                       <Input placeholder="First Name" {...field} />
+//                     </FormControl>
+//
+//                     <FormMessage />
+//                   </FormItem>
+//               )}
+//           />  <FormField
+//               control={form.control}
+//               name="lastName"
+//               render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>Last Name</FormLabel>
+//                     <FormControl>
+//                       <Input placeholder="First Name" {...field} />
+//                     </FormControl>
+//
+//                     <FormMessage />
+//                   </FormItem>
+//               )}
+//           />
+//
+//           <FormField
+//               control={form.control}
+//               name="amount"
+//               render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>Amount</FormLabel>
+//                     <FormControl>
+//                       <Input placeholder="Amount" {...field} />
+//                     </FormControl>
+//
+//                     <FormMessage />
+//                   </FormItem>
+//               )}
+//           />
+//
+// <div className="px-8">
+//     <Button className="mx-8" type="submit">Submit</Button>
+//     <Button onClick={()=> setSplitPayment()}>Split payment</Button>
+// </div>
+//
+//
+//         </form>
+//       </Form>
+//     </div>
+//   );
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+"use client"
+
+import React, { useState } from "react";
+import axios from "axios";
+
+const PaymentForm = () => {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        amount: "",
+    });
+
+    const [splitAmount, setSplitAmount] = useState<number | null>(null);
+    const [responseMessage, setResponseMessage] = useState("");
+
+    // Handle input change
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const finalAmount = splitAmount || Number(formData.amount); // Use splitAmount if it's set
+        const dataToSend = {
+            ...formData,
+            amount: finalAmount,
+        };
+
+        try {
+            const response = await axios.post("https://your-api-endpoint.com/submit", dataToSend);
+            setResponseMessage("Submission successful: " + response.data.message);
+        } catch (error: any) {
+            setResponseMessage(
+                "Error: " + (error.response?.data?.message || error.message)
+            );
+        }
+    };
+
+    // Handle payment splitting
+    const handleSplit = (percentage: number) => {
+        const originalAmount = Number(formData.amount);
+        if (isNaN(originalAmount) || originalAmount <= 0) {
+            setResponseMessage("Please enter a valid amount before splitting.");
+            return;
+        }
+        const splitValue = originalAmount * (percentage / 100);
+        setSplitAmount(splitValue);
+    };
+
+    return (
+        <div>
+            <h1>Payment Form</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="name">Name:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="amount">Amount:</label>
+                    <input
+                        type="number"
+                        id="amount"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <button type="button" onClick={() => handleSplit(20)}>
+                        Split Payment by 20%
+                    </button>
+                    <button type="button" onClick={() => handleSplit(50)}>
+                        Split Payment by 50%
+                    </button>
+                </div>
+                {splitAmount !== null && (
+                    <p>Split Amount: {splitAmount.toFixed(2)}</p>
+                )}
+                <button type="submit">Submit</button>
+            </form>
+            {responseMessage && <p>{responseMessage}</p>}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
-}
+    );
+};
+
+export default PaymentForm;
+
